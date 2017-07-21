@@ -16,7 +16,8 @@ class Welcome extends CI_Controller {
     }
 
     public function index() {
-        header("location:" . base_url() . 'welcome/validar');
+        $this->load->model('model_login');
+        print_r($this->model_login->buscarOperador());
     }
 
     public function validar() {

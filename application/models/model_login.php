@@ -2,20 +2,24 @@
 
 class model_login extends CI_Model {
 
-    public function buscarOperador($usuario) {
-        $params = array(
-            array('name' => ':params1', 'value' => codsistema, 'type' => SQLT_CHR, 'length' => 32),
-            array('name' => ':params2', 'value' => codmodulo, 'type' => SQLT_CHR, 'length' => 32),
-            array('name' => ':params3', 'value' => $usuario, 'type' => SQLT_CHR, 'length' => 32),
-            array('name' => ':data', 'value' => 'data', 'type' => SQLT_CHR, 'length' => 32)
-        );
-        $this->db->stored_procedure('MSISEG.PKGSEG_USUARIO', 'PS_USUARIOLOGIN', $params);
-//        $stmt = oci_parse($this->db->conn_id, "begin MSISEG.PKGSEG_USUARIO.PS_USUARIOLOGIN(:params1, :params2',':params3', :data); end;");
-//        //$stmt = oci_parse($this->db->conn_id, "begin package.procedure_name(:params1, :params2, :params3); end;");
-//
-//        foreach ($params as $p)
-//            oci_bind_by_name($stmt, $p['name'], $p['value'], $p['length']);
-//        $r = ociexecute($stmt);
+    public function buscarOperador() {
+        $usuario = 'RCARHUARICRAV';
+        $codsistema = codsistema;
+        $codmodulo = codmodulo;
+        $conn = $this->db->conn_id;
+
+        $curs = oci_new_cursor($conn);
+        $stid = oci_parse($conn, "begin MSISEG.PKGSEG_USUARIO.PS_USUARIOLOGIN(:codsistema,:codmodulo,:usuario,:data); end;");
+        oci_bind_by_name($stid, ':codsistema', $codsistema);
+        oci_bind_by_name($stid, ':codmodulo', $codmodulo);
+        oci_bind_by_name($stid, ':usuario', $usuario);
+        oci_bind_by_name($stid, ":data", $curs, -1, OCI_B_CURSOR);
+        oci_execute($stid);
+        oci_execute($curs);  // Ejecutar el REF CURSOR como un ide de sentencia normal
+        return oci_fetch_array($curs, OCI_ASSOC );        
+        oci_free_statement($stid);
+        oci_free_statement($curs);
+        oci_close($conn);
     }
 
     public function buscarOperador2() {
@@ -31,7 +35,7 @@ class model_login extends CI_Model {
     }
 
     public function select_user() {
-        if ($query = $this->db->query("CALL MSISEG.PKGSEG_USUARIO.PS_USUARIOLOGIN('".codsistema."','".codmodulo."','$usuario')")) {
+        if ($query = $this->db->query("CALL MSISEG.PKGSEG_USUARIO.PS_USUARIOLOGIN('" . codsistema . "','" . codmodulo . "','$usuario')")) {
             print_r($query->row());
         } else {
             show_error('Error!');

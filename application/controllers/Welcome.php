@@ -25,7 +25,6 @@ class Welcome extends CI_Controller {
         $this->form_validation->set_rules('usuario', 'Nombre', 'required|callback_username');
         $this->form_validation->set_rules('password', 'Password', 'required');
         if ($this->form_validation->run() === FALSE) {
-
             $dato['titulo'] = "validacion correcta";
             $this->load->view('plantilla/head', $dato);
             $dato['cabecera'] = "Mantenimiento de Indices de Uso";

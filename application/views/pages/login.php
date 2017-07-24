@@ -6,13 +6,13 @@
             </div>
             <div class="modal-body" style="padding:30px 30px;">
 
-                <form method="post" action="<?php echo base_url(); ?>welcome/validar">
+                <form method="post" action="<?php echo base_url(); ?>home/validar">
                     <div class="form-group">
-                        <input type="text" class="form-control" placeholder="Ingrese Usuario"  name="usuario" value="<?php echo set_value('usuario') ?>"/>                            
+                        <input type="text" class="form-control" placeholder="Ingrese Usuario" id="usuario" name="usuario" value="<?php echo set_value('usuario') ?>" required=""/>                            
                     </div>
                     <?php echo form_error('usuario'); ?>
                     <div class="form-group">
-                        <input type="password" class="form-control" placeholder="Ingrese Password" name="password" value="<?php echo set_value('password') ?>"/>
+                        <input type="password" class="form-control" placeholder="Ingrese Password" id="password" name="password" value="<?php echo set_value('password') ?>" required=""/>
                     </div>
                     <?php echo form_error('password'); ?>
                     <button type="submit" id="login" class="btn btn-success"> Ingresar</button>

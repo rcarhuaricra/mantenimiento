@@ -13,6 +13,7 @@ class Mantenimiento extends CI_Controller {
     public function index() {
         $data['titulo'] = "Mantenimiento de Indices de Uso";
         $this->load->view('plantilla/head', $data);
+        $this->load->view('plantilla/menu');
         $dato['ciiu'] = $this->modelMantenimiento->lotessinCIIU();
         $this->load->view('pages/mantenimiento', $dato);
         $this->load->view('plantilla/foot', $data);

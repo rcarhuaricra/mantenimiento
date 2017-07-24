@@ -7,7 +7,11 @@ class Mantenimiento extends CI_Controller {
     public function __construct() {
         parent::__construct();
         // cargo el modelo para todas las funciones en este controlador
+        if (!$this->session->userdata('login')) {
+            header("Location:" . base_url() . "home");
+        }
         $this->load->model('modelMantenimiento');
+        
     }
 
     public function index() {

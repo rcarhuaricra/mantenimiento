@@ -7,13 +7,17 @@ class Indices extends CI_Controller {
     public function __construct() {
         parent::__construct();
         // Your own constructor code
-        $this->load->library('form_validation');
+        if (!$this->session->userdata('login')) {
+            header("Location:" . base_url() . "home");
+        }
+        
         $this->load->model('modelIndicesCIIU');
     }
 
     public function index() {
         $data['titulo'] = "Indices de Uso";
         $this->load->view('plantilla/head', $data);
+        $this->load->view('plantilla/menu');
         $this->load->view("indices/filtros");
     }
 

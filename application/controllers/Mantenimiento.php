@@ -20,7 +20,7 @@ class Mantenimiento extends CI_Controller {
         $this->load->view('plantilla/menu');
         $dato['ciiu'] = $this->modelMantenimiento->lotessinCIIU();
         $this->load->view('pages/mantenimiento', $dato);
-        $this->load->view('plantilla/foot', $data);
+        $this->load->view('plantilla/foot');
     }
 
     public function detalleLotes() {

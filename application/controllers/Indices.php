@@ -19,6 +19,7 @@ class Indices extends CI_Controller {
         $this->load->view('plantilla/head', $data);
         $this->load->view('plantilla/menu');
         $this->load->view("indices/filtros");
+        $this->load->view('plantilla/foot');
     }
 
     public function comboOrdenanza() {

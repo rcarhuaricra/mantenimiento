@@ -1,5 +1,5 @@
 <form id="guardaLotes" method="post" class="panel panel-default panel-body">
-    <div class="media panel-body well well-sm">
+    <div class="media panel-body well well-sm pegajoso">
         <div class="media-body">
             <strong class="media-heading"> Lote Nº: </strong>
             <?php echo $lote; ?>
@@ -100,6 +100,14 @@
 <script>
     $(document).ready(function () {
         $('[data-toggle="tooltip"]').tooltip();
+        var altura = $('.pegajoso').offset().top;
+        $(window).on('scroll', function () {
+            if ($(window).scrollTop() > altura) {
+                $('.pegajoso').addClass('menu-fixed');
+            } else {
+                $('.pegajoso').removeClass('menu-fixed');
+            }
+        });
     });
     $('button[name=btnvia]').click(function () {
         var id = this.id;

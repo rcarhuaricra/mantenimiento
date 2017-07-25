@@ -34,7 +34,7 @@
         <div class="panel-heading title">
             <strong>Registro de Vias / Cuadras / Lados</strong>
         </div>
-        <form id="grabarTabla" action="" method="POST">
+        <form id="grabarTabla" >
             <div class="panel-body">
                 <div class="form-horizontal ">
                     <div class="panel panel-default panel-body ">
@@ -50,10 +50,7 @@
                             <div class="col-md-12 ">
                                 <div id="txtDescripcion" class="form-group panel-body">
                                 </div>
-                            </div>
-                            <div id="chkhabilitado" class="col-md-12 ">
-                            </div>
-                            <div id="prueba"></div>
+                            </div>                                                       
                             <div class="panel-body">
                                 <table id="tabla1" name="" class="display table table-hover table-bordered table-container">
                                 </table>
@@ -68,102 +65,100 @@
 
 <script type="text/javascript">
     $(document).ready(function () {
-
         $.ajax({
             type: "POST",
             url: "<?php echo base_url(); ?>indices/comboOrdenanza",
             success: function (response) {
-                
                 if (response === "") {
+                    alert('Su Sesión a Caducado');
                     location.reload();
                 }
-                $('#cmbOrdenanza').html(response).fadeIn();
+                $('#cmbOrdenanza').html(response);
             }
         });
-        $("#cmbOrdenanza").change(function () {
+    });
+    $("#cmbOrdenanza").change(function () {
+        $("#cmbOrdenanza option:selected").each(function () {
+            ordenanza = $('#cmbOrdenanza').val();
 
-            $("#cmbOrdenanza option:selected").each(function () {
-                ordenanza = $('#cmbOrdenanza').val();
-
-                $.post("<?php echo base_url(); ?>indices/comboSector",
-                        {cmbordenanza: ordenanza},
-                        function (data) {
-                            
-                            if (data === "") {
-                                location.reload();
-                            }
-                            $("#cmbSector").html(data);
-                            $('#cmbZonifiacion').html("<option value=''>[Seleccione Zonificación]</option>");
-                            $('#cmbGiro').html("<option value=''>[Seleccione Giro]</option>");
-                        });
-
-            });
-        });
-        $("#cmbSector").change(function () {
-
-            $("#cmbSector option:selected").each(function () {
-                ordenanza = $('#cmbOrdenanza').val();
-                sector = $('#cmbSector').val();
-
-                $.post("<?php echo base_url(); ?>indices/comboZonificacion",
-                        {cmbordenanza: ordenanza,
-                            cmbsector: sector},
-                        function (data) {
-                            
-                            if (data === "") {
-                                location.reload();
-                            }
-                            $("#cmbZonifiacion").html(data);
-                            $('#cmbGiro').html("<option value=''>[Seleccione Giro]</option>");
-                        });
-            });
+            $.post("<?php echo base_url(); ?>indices/comboSector",
+                    {cmbordenanza: ordenanza},
+                    function (data) {
+                        if (data === "") {
+                            alert('Su Sesión a Caducado');
+                            location.reload();
+                        }
+                        $("#cmbSector").html(data);
+                        $('#cmbZonifiacion').html("<option value=''>[Seleccione Zonificación]</option>");
+                        $('#cmbGiro').html("<option value=''>[Seleccione Giro]</option>");
+                        $("#txtDescripcion").html("");
+                    });
 
         });
-        $("#cmbZonifiacion").change(function () {
+    });
+    $("#cmbSector").change(function () {
+        $("#cmbSector option:selected").each(function () {
+            ordenanza = $('#cmbOrdenanza').val();
+            sector = $('#cmbSector').val();
 
-            $("#cmbZonifiacion option:selected").each(function () {
-                ordenanza = $('#cmbOrdenanza').val();
-                sector = $('#cmbSector').val();
-                Zonifiacion = $('#cmbZonifiacion').val();
-
-                $.post("<?php echo base_url(); ?>indices/comboGiro",
-                        {cmbordenanza: ordenanza,
-                            cmbsector: sector,
-                            cmbzonifiacion: Zonifiacion},
-                        function (data) {
-                            
-                            if (data === "") {
-                                location.reload();
-                            }
-                            $("#cmbGiro").html(data);
-                        });
-            });
+            $.post("<?php echo base_url(); ?>indices/comboZonificacion",
+                    {cmbordenanza: ordenanza,
+                        cmbsector: sector},
+                    function (data) {
+                        if (data === "") {
+                            alert('Su Sesión a Caducado');
+                            location.reload();
+                        }
+                        $("#cmbZonifiacion").html(data);
+                        $('#cmbGiro').html("<option value=''>[Seleccione Giro]</option>");
+                        $("#txtDescripcion").html("");
+                    });
         });
-        $("#cmbGiro").change(function () {
 
-            $("#cmbGiro option:selected").each(function () {
-                ordenanza = $('#cmbOrdenanza').val();
-                sector = $('#cmbSector').val();
-                Zonifiacion = $('#cmbZonifiacion').val();
-                giro = $('#cmbGiro').val();
+    });
+    $("#cmbZonifiacion").change(function () {
+        $("#cmbZonifiacion option:selected").each(function () {
+            ordenanza = $('#cmbOrdenanza').val();
+            sector = $('#cmbSector').val();
+            Zonifiacion = $('#cmbZonifiacion').val();
 
+            $.post("<?php echo base_url(); ?>indices/comboGiro",
+                    {cmbordenanza: ordenanza,
+                        cmbsector: sector,
+                        cmbzonifiacion: Zonifiacion},
+                    function (data) {
+                        if (data === "") {
+                            alert('Su Sesión a Caducado');
+                            location.reload();
+                        }
+                        $("#cmbGiro").html(data);
+                        $("#txtDescripcion").html("");
+                    });
+        });
+    });
+    $("#cmbGiro").change(function () {
+        $("#cmbGiro option:selected").each(function () {
+            ordenanza = $('#cmbOrdenanza').val();
+            sector = $('#cmbSector').val();
+            Zonifiacion = $('#cmbZonifiacion').val();
+            giro = $('#cmbGiro').val();
+            if (giro === '') {
+                $("#txtDescripcion").html("");
+            } else {
                 $.post("<?php echo base_url(); ?>indices/descripcion",
                         {cmbordenanza: ordenanza,
                             cmbsector: sector,
                             cmbzonifiacion: Zonifiacion,
                             cmbgiro: giro},
                         function (data) {
-                            
                             if (data === "") {
+                                alert('Su Sesión a Caducado');
                                 location.reload();
                             }
                             $("#txtDescripcion").html(data);
                         });
-            });
-
+            }
         });
-
-
     });
 
 </script>

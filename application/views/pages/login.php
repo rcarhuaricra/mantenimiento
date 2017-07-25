@@ -1,4 +1,4 @@
-<div class="" id="myModal" role="dialog">
+<div class="modal fade in" id="myModalLogin" role="dialog" style="display: block;">
     <div class="modal-dialog modal-sm">
         <div class="modal-content">
             <div class="modal-header" style="padding:10px 30px;" >
@@ -21,4 +21,4 @@
         </div>
     </div>
 </div>
-
+<div class="modal-backdrop fade in"></div>

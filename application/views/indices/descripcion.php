@@ -1,10 +1,8 @@
 <?php
 $row = $descripcion->row();
-
 ?>
-
 <div class="panel-body form-group">
-    <textarea class="form-control" id="Descripcion1" name="Descripcion1" rows="4"><?php echo $row->TXTOBSERVACION; ?></textarea>
+    <textarea class="form-control " id="Descripcion1" name="Descripcion1" rows="4"><?php echo $row->TXTOBSERVACION; ?></textarea>
 </div>
 <?php
 if ($row->FLGESTADO == 1) {
@@ -18,7 +16,7 @@ if ($row->FLGESTADO == 1) {
         <?php
         if ($this->session->userdata('codRol') == administrador) {
             ?>
-            <button class="btn btn-warning pull-right ">Cambiar Estado</button>
+            <button class="btn btn-warning pull-right" id="btnestado" type="button">Cambiar Estado</button>
             <?php
         }
         ?>
@@ -31,7 +29,7 @@ if ($row->FLGESTADO == 1) {
         <?php
         if ($this->session->userdata('codRol') == administrador) {
             ?>
-            <button class="btn btn-warning pull-right ">Cambiar Estado</button>
+            <button class="btn btn-warning pull-right" id="btnestado" type="button">Cambiar Estado</button>
             <?php
         }
         ?>
@@ -39,8 +37,14 @@ if ($row->FLGESTADO == 1) {
     <?php
 }
 ?>
-
-
+<script>
+    $("#btnestado").click(function () {
+        ordenanza = $('#cmbOrdenanza').val();
+        sector = $('#cmbSector').val();
+        Zonifiacion = $('#cmbZonifiacion').val();
+        giro = $('#cmbGiro').val();
+    });
+</script>
 
 
 

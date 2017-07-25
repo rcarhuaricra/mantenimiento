@@ -26,8 +26,8 @@ class modelIndicesCIIU extends CI_Model {
         return $this->db->query($sql);
     }
 
-    public function descripcion($codOrdenanza, $codsector, $codZonificacion, $codciiu) {
-        $sql = "select * from MSIACU.ACU_COMPATIBILIDADUSO 
+    public function descripcionModel($codOrdenanza, $codsector, $codZonificacion, $codciiu) {
+        echo $sql = "select * from MSIACU.ACU_COMPATIBILIDADUSO 
                 WHERE CODORDENANZA = '$codOrdenanza' 
                 AND CODSECTOR = '$codsector' 
                 AND CODZONA = '$codZonificacion' 

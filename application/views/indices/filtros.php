@@ -68,68 +68,102 @@
 
 <script type="text/javascript">
     $(document).ready(function () {
+
         $.ajax({
             type: "POST",
             url: "<?php echo base_url(); ?>indices/comboOrdenanza",
-            success: function (response)
-            {
+            success: function (response) {
+                
+                if (response === "") {
+                    location.reload();
+                }
                 $('#cmbOrdenanza').html(response).fadeIn();
             }
         });
         $("#cmbOrdenanza").change(function () {
+
             $("#cmbOrdenanza option:selected").each(function () {
                 ordenanza = $('#cmbOrdenanza').val();
+
                 $.post("<?php echo base_url(); ?>indices/comboSector",
                         {cmbordenanza: ordenanza},
                         function (data) {
+                            
+                            if (data === "") {
+                                location.reload();
+                            }
                             $("#cmbSector").html(data);
                             $('#cmbZonifiacion').html("<option value=''>[Seleccione Zonificación]</option>");
                             $('#cmbGiro').html("<option value=''>[Seleccione Giro]</option>");
                         });
+
             });
         });
         $("#cmbSector").change(function () {
+
             $("#cmbSector option:selected").each(function () {
                 ordenanza = $('#cmbOrdenanza').val();
                 sector = $('#cmbSector').val();
+
                 $.post("<?php echo base_url(); ?>indices/comboZonificacion",
                         {cmbordenanza: ordenanza,
-                         cmbsector: sector},
+                            cmbsector: sector},
                         function (data) {
+                            
+                            if (data === "") {
+                                location.reload();
+                            }
                             $("#cmbZonifiacion").html(data);
                             $('#cmbGiro').html("<option value=''>[Seleccione Giro]</option>");
                         });
             });
+
         });
         $("#cmbZonifiacion").change(function () {
+
             $("#cmbZonifiacion option:selected").each(function () {
                 ordenanza = $('#cmbOrdenanza').val();
                 sector = $('#cmbSector').val();
                 Zonifiacion = $('#cmbZonifiacion').val();
+
                 $.post("<?php echo base_url(); ?>indices/comboGiro",
                         {cmbordenanza: ordenanza,
-                         cmbsector: sector,
-                         cmbzonifiacion: Zonifiacion},
+                            cmbsector: sector,
+                            cmbzonifiacion: Zonifiacion},
                         function (data) {
+                            
+                            if (data === "") {
+                                location.reload();
+                            }
                             $("#cmbGiro").html(data);
                         });
             });
         });
         $("#cmbGiro").change(function () {
+
             $("#cmbGiro option:selected").each(function () {
                 ordenanza = $('#cmbOrdenanza').val();
                 sector = $('#cmbSector').val();
                 Zonifiacion = $('#cmbZonifiacion').val();
                 giro = $('#cmbGiro').val();
+
                 $.post("<?php echo base_url(); ?>indices/descripcion",
                         {cmbordenanza: ordenanza,
-                         cmbsector: sector,
-                         cmbzonifiacion: Zonifiacion,
-                         cmbgiro: giro},
+                            cmbsector: sector,
+                            cmbzonifiacion: Zonifiacion,
+                            cmbgiro: giro},
                         function (data) {
+                            
+                            if (data === "") {
+                                location.reload();
+                            }
                             $("#txtDescripcion").html(data);
                         });
             });
+
         });
+
+
     });
+
 </script>

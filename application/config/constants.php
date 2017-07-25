@@ -87,16 +87,16 @@ defined('EXIT__AUTO_MAX') OR define('EXIT__AUTO_MAX', 125); // highest automatic
 if ($entorno == 'desarrollo') {
     define('codsistema', '022');
     define('codmodulo', '001');
-    $administrador = '000138';
-    $supervisor = '000139';
-    $digitador = '000140';
+    define('administrador', '000138');
+    define('supervisor', '000139');
+    define('digitador', '000140');
 }
 if ($entorno == 'produccion') {
     define('codsistema', '022');
     define('codmodulo', '001');
-    $administrador = '000138';
-    $supervisor = '000139';
-    $digitador = '000140';
+    define('administrador', '000138');
+    define('supervisor', '000139');
+    define('digitador', '000140');
 }
 
 
